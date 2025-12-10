@@ -1,0 +1,90 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>来自《搏击俱乐部》的话</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; background: #050508; color: #f5f5f5; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    body { display: flex; align-items: center; justify-content: center; padding: 1.5rem 0.8rem; overflow: hidden; }
+    .frame { position: relative; width: min(92vw, 480px); padding: 2.3rem 1.4rem 1.8rem; border-radius: 12px; background: radial-gradient(circle at top, #181826 0%, #050508 70%); border: 4px solid #ff4f7b; box-shadow: 0 0 0 4px #1a0912, 0 24px 50px rgba(0, 0, 0, 0.9); overflow: hidden; image-rendering: pixelated; }
+    .frame::before { content: ""; position: absolute; inset: -40px; background-image: repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.04) 0, rgba(255, 255, 255, 0.04) 1px, transparent 1px, transparent 2px); mix-blend-mode: soft-light; opacity: 0.35; pointer-events: none; }
+    .header { position: relative; z-index: 1; margin-bottom: 1.5rem; }
+    .tagline { font-family: "Press Start 2P", system-ui, sans-serif; font-size: 9px; text-transform: uppercase; letter-spacing: 1px; display: inline-block; padding: 0.4rem 0.6rem; border-radius: 999px; border: 2px solid #ff90b3; color: #ff90b3; margin-bottom: 0.8rem; }
+    .title { font-family: "Press Start 2P", system-ui, sans-serif; font-size: clamp(16px, 4.8vw, 18px); letter-spacing: 2px; color: #ffe3f0; text-shadow: 0 0 10px rgba(255, 79, 123, 0.9), 0 0 20px rgba(255, 79, 123, 0.8); }
+    .subtitle { margin-top: 0.5rem; font-size: 13px; opacity: 0.9; }
+    .quote-box { position: relative; z-index: 1; margin-top: 1.2rem; padding: 1.2rem 1rem; background: rgba(5, 5, 10, 0.85); border-radius: 8px; border: 2px solid rgba(255, 255, 255, 0.08); box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.06), 0 10px 25px rgba(0, 0, 0, 0.9); }
+    .quote-label { font-size: 11px; opacity: 0.8; margin-bottom: 0.6rem; letter-spacing: 0.05em; }
+    .quote-text { font-size: 14px; line-height: 1.7; }
+    .quote-text p + p { margin-top: 0.7rem; }
+    .note { margin-top: 0.8rem; font-size: 11px; opacity: 0.65; }
+    .footer { position: relative; z-index: 1; margin-top: 1.4rem; display: flex; flex-direction: column; gap: 0.6rem; font-size: 12px; }
+    .wish { opacity: 0.9; }
+    .button-row { display: flex; justify-content: flex-end; gap: 0.6rem; margin-top: 0.4rem; }
+    .btn { font-family: "Press Start 2P", system-ui, sans-serif; font-size: 9px; text-transform: uppercase; letter-spacing: 1px; padding: 0.6rem 0.8rem; border-radius: 999px; border: 2px solid #f5f5f5; background: transparent; color: #f5f5f5; text-decoration: none; cursor: pointer; transition: background 0.1s ease, color 0.1s ease, transform 0.1s ease; }
+    .btn:hover { background: #f5f5f5; color: #050508; transform: translateY(-1px); }
+    .btn-secondary { border-color: #999; color: #ccc; }
+    .btn-secondary:hover { background: #999; color: #050508; }
+  </style>
+</head>
+<body>
+  <main class="frame">
+    <header class="header">
+      <div class="tagline">One Of My Favorites Movies</div>
+      <h1 class="title">FIGHT CLUB</h1>
+      <p class="subtitle">从我喜欢的电影《搏击俱乐部》里，送给你一段话</p>
+    </header>
+    <section class="quote-box">
+      <div class="quote-label">📼 这段台词写给你：</div>
+      <div class="quote-text">
+        <p>你的工作不能定义你，你拥有的东西也不能定义你。</p>
+        <p>你不是你的工作，你不是你赚了多少钱，你不是你开的车，</p>
+        <p>你不是你钱包里的东西。</p>
+        <p>你是一个独一无二的存在。</p>
+        </p>
+      </div>
+      <!--<div class="note">
+        * 提示：这是一个私人小站，只给你看的“电影字幕”。台词本身来自电影《搏击俱乐部》。
+      </div>-->
+    </section>
+    <footer class="footer">
+      <div class="wish">记住：<br /><strong>这条路上，你不是简历、不是分数，你是那个敢往前走的人。</strong></div>
+      <div class="button-row">
+        <a class="btn btn-secondary" href="index.html">返回封面</a>
+      </div>
+    </footer>
+  </main>
+ <!-- 背景音乐 -->
+  <audio id="bgm" src="where is my mind.mp3" loop></audio>
+
+  <!-- 音乐播放按钮 -->
+  <button id="musicToggle" class="music-btn">🎵 播放音乐</button>
+
+  <script>
+    const bgm = document.getElementById("bgm");
+    const musicToggle = document.getElementById("musicToggle");
+    let isPlaying = false;
+
+    // 点击按钮时控制播放和暂停
+    musicToggle.addEventListener("click", () => {
+      if (!isPlaying) {
+        bgm.play().catch((err) => {
+          bgm.muted = true;  // 如果自动播放失败，静音播放
+          bgm.play();
+        });
+        isPlaying = true;
+        musicToggle.textContent = "⏸ 暂停音乐";  // 按钮文字修改
+        localStorage.setItem("musicState", "playing");  // 保存播放状态
+      } else {
+        bgm.pause();
+        isPlaying = false;
+        musicToggle.textContent = "🎵 播放音乐";  // 按钮文字修改
+        localStorage.setItem("musicState", "paused");  // 保存暂停状态
+      }
+    });
+  </script>
+</body>
+</html>
